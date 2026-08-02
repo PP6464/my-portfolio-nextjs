@@ -1,0 +1,3 @@
+li[data-selected="true"] {
+    border-bottom: 2px solid lime;
+}
