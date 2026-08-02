@@ -5,8 +5,8 @@
     --foreground: #171717;
     --gray: #757575;
     --font-size-large: 30px;
-    --font-size-small: 8px;
-    --font-size-medium: 12px;
+    --font-size-small: 15px;
+    --font-size-medium: 20px;
 }
 
 @theme inline {
@@ -31,6 +31,14 @@ body {
 h1 {
     font-size: var(--font-size-large);
     font-weight: bold;
+}
+
+h2 {
+    font-size: var(--font-size-medium);
+}
+
+p {
+    font-size: var(--font-size-small);
 }
 
 .grey {
