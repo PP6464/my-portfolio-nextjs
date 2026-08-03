@@ -1,4 +1,17 @@
+#small-navbar-toggle:hover {
+    background-color: var(--shadow);
+    cursor: pointer;
+}
+
+li {
+    padding: 5px;
+}
+
 li[data-selected="true"] {
     border-bottom: 2px solid lime;
     font-weight: bold;
+}
+
+li:hover {
+    background-color: var(--shadow);
 }

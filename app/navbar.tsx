@@ -3,10 +3,23 @@
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import Email from '@mui/icons-material/Email';
-import { Phone, Sunny } from '@mui/icons-material';
+import { DarkMode, Phone, Sunny } from '@mui/icons-material';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, { useState, useSyncExternalStore } from 'react';
 import './navbar.css';
+import { IconButton } from '@mui/material';
+import { useTheme } from 'next-themes';
+
+const emptySubscribe = () => () => {
+};
+
+function useMounted() {
+	return useSyncExternalStore(
+		emptySubscribe,
+		() => true,
+		() => false,
+	);
+}
 
 const navLinks = [
 	{ href: '/', label: 'Home' },
@@ -17,15 +30,32 @@ const navLinks = [
 	{ href: '/my-code', label: 'My Code' },
 ];
 
+function ToggleIcon({ style }: { style?: React.CSSProperties }) {
+	const { resolvedTheme, setTheme } = useTheme();
+	const mounted = useMounted();
+
+	if (!mounted) return null;
+
+	return (
+		<IconButton
+			style={ { position: 'absolute', color: resolvedTheme === 'dark' ? 'white' : 'orange', ...style } }
+			onClick={ () => {
+				setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
+			} }>
+			{ resolvedTheme === 'dark' ? <DarkMode/> :
+				<Sunny/> }
+		</IconButton>
+	);
+}
+
 function SmallNavbar() {
 	const pathname = usePathname();
 	const [showingLinks, setShowingLinks] = useState(false);
 
 	return (
-		<nav className={ 'flex flex-col gap-3' }
-				 style={ { padding: '10px', boxShadow: '0 2px 4px rgba(128, 128, 128, 0.5)' } }>
-			<div className={ 'flex items-center justify-between' }>
-				<div style={ { marginLeft: '40px' } }></div>
+		<nav className={ 'flex flex-col gap-3 min-w-full nav:hidden' }
+				 style={ { padding: '10px', boxShadow: '0 2px 4px var(--shadow)' } }>
+			<div className={ 'flex items-center justify-center' }>
 				<div className={ 'flex flex-col gap-1.5 items-center' }>
 					<h1>Panth Patel</h1>
 					<div className={ 'flex gap-2 items-center grey' }>
@@ -37,16 +67,17 @@ function SmallNavbar() {
 						<p style={ { transform: 'translate(0px, 2px)' } }>+44 7305821678</p>
 					</div>
 				</div>
-				<Sunny style={ { marginRight: '10px' } }/>
+				<ToggleIcon style={ { right: '10px' } }/>
 			</div>
-			<div className={ 'flex justify-center' } onClick={ () => setShowingLinks(!showingLinks) }>
+			<div id={ 'small-navbar-toggle' } className={ 'flex justify-center' }
+					 onClick={ () => setShowingLinks(!showingLinks) }>
 				<h2>{ showingLinks ? 'Less' : 'More' }</h2>
 			</div>
 			<ul className={ `flex flex-col gap-7` } style={ { display: showingLinks ? 'contents' : 'none' } }>
 				{ navLinks.map((link) => (
 					<div key={ link.href } className={ 'flex justify-center' }>
 						<li data-selected={ link.href === pathname }>
-							<Link href={ link.href }>{ link.label }</Link>
+							<Link onClick={ () => setShowingLinks(false) } href={ link.href }>{ link.label }</Link>
 						</li>
 					</div>
 				)) }
@@ -59,9 +90,9 @@ function LargeNavbar() {
 	const pathname = usePathname();
 
 	return (
-		<nav className={ 'flex flex-col gap-3' }
-				 style={ { padding: '10px', boxShadow: '0 2px 4px rgba(128, 128, 128, 0.5)' } }>
-			<div className={ 'flex items-center gap-4' }>
+		<nav className={ 'nav:flex flex-col gap-3 min-w-full hidden' }
+				 style={ { padding: '10px', boxShadow: '0 2px 4px var(--shadow)' } }>
+			<div className={ 'flex items-center gap-3' }>
 				<Image className={ 'rounded-full border-2' }
 							 loading={ 'eager' }
 							 style={ { borderColor: 'var(--foreground)' } }
@@ -78,7 +109,7 @@ function LargeNavbar() {
 						<p style={ { transform: 'translate(0px, 2px)' } }>+44 7305821678</p>
 					</div>
 				</div>
-				<Sunny style={ { position: 'absolute', right: '20px' } }/>
+				<ToggleIcon style={ { right: '20px' } }/>
 			</div>
 			<ul className={ 'flex gap-5' }>
 				{ navLinks.map((link) => (
@@ -92,16 +123,11 @@ function LargeNavbar() {
 }
 
 export function Navbar() {
-	const [width, setWidth] = useState(window.innerWidth);
-
-	useEffect(() => {
-		const windowResizeListener = () => {
-			setWidth(window.innerWidth);
-		};
-		window.addEventListener('resize', windowResizeListener);
-	}, []);
-
+	// These navbars are governed by Tailwind CSS to not appear together or both not appear
 	return (
-		width < 620 ? <SmallNavbar/> : <LargeNavbar/>
+		<>
+			<SmallNavbar/>
+			<LargeNavbar/>
+		</>
 	);
 }

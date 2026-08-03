@@ -3,6 +3,7 @@ import { Montserrat } from 'next/font/google';
 import './globals.css';
 import React from 'react';
 import { Navbar } from './navbar';
+import { Provider } from '@/app/providers';
 
 const montserrat = Montserrat({
 	variable: '--font-montserrat',
@@ -23,6 +24,7 @@ export default function RootLayout({
 		<html
 			lang="en"
 			className={ `${ montserrat.variable } h-full antialiased` }
+			suppressHydrationWarning
 		>
 		<head>
 			<meta charSet={ 'utf-8' }/>
@@ -32,8 +34,10 @@ export default function RootLayout({
 			<title>Panth Patel&apos;s Portfolio</title>
 		</head>
 		<body className="min-h-full flex flex-col">
-		<Navbar />
-		{ children }
+			<Provider>
+				<Navbar/>
+				{ children }
+			</Provider>
 		</body>
 		</html>
 	);
