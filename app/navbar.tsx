@@ -18,14 +18,14 @@ const navLinks = [
 ];
 
 function SmallNavbar() {
+	const pathname = usePathname();
+	const [showingLinks, setShowingLinks] = useState(false);
+
 	return (
 		<nav className={ 'flex flex-col gap-3' }
 				 style={ { padding: '10px', boxShadow: '0 2px 4px rgba(128, 128, 128, 0.5)' } }>
 			<div className={ 'flex items-center justify-between' }>
-				<Image className={ 'rounded-full border-2' }
-							 style={ { borderColor: 'var(--foreground)' } }
-							 src={ '/profile-pic.png' } alt="profile-pic" width={ 125 }
-							 height={ 125 }/>
+				<div style={ { marginLeft: '40px' } }></div>
 				<div className={ 'flex flex-col gap-1.5 items-center' }>
 					<h1>Panth Patel</h1>
 					<div className={ 'flex gap-2 items-center grey' }>
@@ -37,9 +37,20 @@ function SmallNavbar() {
 						<p style={ { transform: 'translate(0px, 2px)' } }>+44 7305821678</p>
 					</div>
 				</div>
-				<Sunny/>
+				<Sunny style={ { marginRight: '10px' } }/>
 			</div>
-			<h2>More</h2>
+			<div className={ 'flex justify-center' } onClick={ () => setShowingLinks(!showingLinks) }>
+				<h2>{ showingLinks ? 'Less' : 'More' }</h2>
+			</div>
+			<ul className={ `flex flex-col gap-7` } style={ { display: showingLinks ? 'contents' : 'none' } }>
+				{ navLinks.map((link) => (
+					<div key={ link.href } className={ 'flex justify-center' }>
+						<li data-selected={ link.href === pathname }>
+							<Link href={ link.href }>{ link.label }</Link>
+						</li>
+					</div>
+				)) }
+			</ul>
 		</nav>
 	);
 }
@@ -52,6 +63,7 @@ function LargeNavbar() {
 				 style={ { padding: '10px', boxShadow: '0 2px 4px rgba(128, 128, 128, 0.5)' } }>
 			<div className={ 'flex items-center gap-4' }>
 				<Image className={ 'rounded-full border-2' }
+							 loading={ 'eager' }
 							 style={ { borderColor: 'var(--foreground)' } }
 							 src={ '/profile-pic.png' } alt="profile-pic" width={ 125 }
 							 height={ 125 }/>
@@ -66,8 +78,9 @@ function LargeNavbar() {
 						<p style={ { transform: 'translate(0px, 2px)' } }>+44 7305821678</p>
 					</div>
 				</div>
+				<Sunny style={ { position: 'absolute', right: '20px' } }/>
 			</div>
-			<ul className="flex gap-3">
+			<ul className={ 'flex gap-5' }>
 				{ navLinks.map((link) => (
 					<li key={ link.href } data-selected={ link.href === pathname }>
 						<Link href={ link.href }>{ link.label }</Link>
@@ -79,7 +92,7 @@ function LargeNavbar() {
 }
 
 export function Navbar() {
-	const [width, setWidth] = useState(0);
+	const [width, setWidth] = useState(window.innerWidth);
 
 	useEffect(() => {
 		const windowResizeListener = () => {
@@ -89,6 +102,6 @@ export function Navbar() {
 	}, []);
 
 	return (
-		width < 1000 ? <SmallNavbar/> : <LargeNavbar/>
+		width < 620 ? <SmallNavbar/> : <LargeNavbar/>
 	);
 }
