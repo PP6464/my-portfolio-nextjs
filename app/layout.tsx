@@ -33,7 +33,7 @@ export default function RootLayout({
 			<link rel="icon" href="/profile-pic.png"/>
 			<title>Panth Patel&apos;s Portfolio</title>
 		</head>
-		<body className="min-h-full flex flex-col">
+		<body className="h-screen flex flex-col">
 			<Provider>
 				<Navbar/>
 				{ children }
