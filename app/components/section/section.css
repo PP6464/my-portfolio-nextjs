@@ -4,7 +4,7 @@
     width: 100%;
     transform: translateX(-100%);
     margin: 0 -10px;
-    transition: all 1s;
+    transition: transform 1s, opacity 2.5s;
     display: flex;
 }
 
@@ -38,7 +38,6 @@
     width: 100%;
     justify-content: flex-start;
     align-items: center;
-    transition-delay: 1s;
     padding: 10px;
 }
 

@@ -1,8 +1,11 @@
 @import "tailwindcss";
 
-* {
-    margin: 0;
-    padding: 0;
+@layer base {
+    *, *::before, *::after {
+        margin: 0;
+        padding: 0;
+    }
+
 }
 
 :root {
