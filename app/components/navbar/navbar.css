@@ -8,12 +8,12 @@
     cursor: pointer;
 }
 
-li {
+nav li {
     padding: 5px 10px;
 }
 
 @media (width <= 700px) {
-    li {
+    nav li {
         width: 100%;
         padding: 8px;
         margin: 0;
@@ -21,17 +21,17 @@ li {
         justify-content: center;
     }
 
-    li > div {
+    nav li > div {
         width: fit-content;
     }
 }
 
-li[data-selected="true"] > div {
+nav li[data-selected="true"] > div {
     border-bottom: 2px solid lime;
     font-weight: bold;
 }
 
-li:hover {
+nav li:hover {
     background-color: var(--shadow);
     cursor: pointer;
 }
