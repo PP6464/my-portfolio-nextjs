@@ -4,8 +4,8 @@ import Link from 'next/link';
 import './section.css';
 import { useEffect, useRef } from 'react';
 
-export default function Section({ title, body, href, image }: {
-	title: string, body: string, href: string, image: string
+export default function Section({ title, body, href, image, linkText }: {
+	title: string, body: string, href: string, image: string, linkText: string,
 }) {
 	const selfRef = useRef(null);
 
@@ -29,7 +29,7 @@ export default function Section({ title, body, href, image }: {
 				// eslint-disable-next-line react-hooks/exhaustive-deps
 				observer.unobserve(selfRef.current);
 			}
-		}
+		};
 	}, []);
 
 	return (
@@ -39,10 +39,10 @@ export default function Section({ title, body, href, image }: {
 					<h1>{ title }</h1>
 					<p>{ body }</p>
 				</div>
-				<Link href={ href }>Learn more</Link>
+				<Link href={ href }>{linkText}</Link>
 			</div>
-			{/* eslint-disable-next-line @next/next/no-img-element */}
-			<img src={ image } alt={ title }  />
+			{/* eslint-disable-next-line @next/next/no-img-element */ }
+			<img src={ image } alt={ title }/>
 		</div>
 	);
 }
