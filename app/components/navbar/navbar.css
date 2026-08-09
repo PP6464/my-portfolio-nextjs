@@ -8,6 +8,10 @@
     cursor: pointer;
 }
 
+nav {
+    z-index: 10;
+}
+
 nav li {
     padding: 5px 10px;
 }
