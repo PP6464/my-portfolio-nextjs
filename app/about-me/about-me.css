@@ -1,0 +1,11 @@
+.contact-detail a {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    padding: 5px 10px;
+}
+
+.contact-detail a:hover {
+    background-color: var(--shadow);
+    cursor: pointer;
+}
