@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Email from '@mui/icons-material/Email';
 import { DarkMode, Phone, Sunny } from '@mui/icons-material';
 import Link from 'next/link';
-import React, { useState, useSyncExternalStore } from 'react';
+import React, { useRef, useState, useSyncExternalStore } from 'react';
 import './navbar.css';
 import { IconButton } from '@mui/material';
 import { useTheme } from 'next-themes';
@@ -51,10 +51,18 @@ function ToggleIcon({ style }: { style?: React.CSSProperties }) {
 function SmallNavbar() {
 	const pathname = usePathname();
 	const [showingLinks, setShowingLinks] = useState(false);
+	const refs = [
+		useRef<HTMLAnchorElement>(null),
+		useRef<HTMLAnchorElement>(null),
+		useRef<HTMLAnchorElement>(null),
+		useRef<HTMLAnchorElement>(null),
+		useRef<HTMLAnchorElement>(null),
+		useRef<HTMLAnchorElement>(null),
+	];
 
 	return (
-		<nav className={ 'flex flex-col gap-3 min-w-full nav:hidden' }
-				 style={ { padding: '10px', boxShadow: '0 2px 4px var(--shadow)' } }>
+		<nav className={ 'flex flex-col min-w-full nav:hidden' }
+				 style={ { paddingTop: '10px', boxShadow: '0 2px 4px var(--shadow)' } }>
 			<div className={ 'flex items-center justify-center' }>
 				<div className={ 'flex flex-col gap-1.5 items-center' }>
 					<h1>Panth Patel</h1>
@@ -73,13 +81,14 @@ function SmallNavbar() {
 					 onClick={ () => setShowingLinks(!showingLinks) }>
 				<h2>{ showingLinks ? 'Less' : 'More' }</h2>
 			</div>
-			<ul className={ `flex flex-col gap-7` } style={ { display: showingLinks ? 'contents' : 'none' } }>
-				{ navLinks.map((link) => (
-					<div key={ link.href } className={ 'flex justify-center' }>
-						<li data-selected={ link.href === pathname }>
-							<Link onClick={ () => setShowingLinks(false) } href={ link.href }>{ link.label }</Link>
-						</li>
-					</div>
+			<ul className={ `flex flex-col gap-7` } style={ { display: showingLinks ? 'block' : 'none' } }>
+				{ navLinks.map((link, i) => (
+					<li onClick={ () => refs[i].current?.click() } className={ 'flex justify-center' } key={ link.href }
+							data-selected={ link.href === pathname }>
+						<div>
+							<Link ref={ refs[i] } onClick={ () => setShowingLinks(false) } href={ link.href }>{ link.label }</Link>
+						</div>
+					</li>
 				)) }
 			</ul>
 		</nav>
@@ -88,6 +97,14 @@ function SmallNavbar() {
 
 function LargeNavbar() {
 	const pathname = usePathname();
+	const refs = [
+		useRef<HTMLAnchorElement>(null),
+		useRef<HTMLAnchorElement>(null),
+		useRef<HTMLAnchorElement>(null),
+		useRef<HTMLAnchorElement>(null),
+		useRef<HTMLAnchorElement>(null),
+		useRef<HTMLAnchorElement>(null),
+	];
 
 	return (
 		<nav className={ 'nav:flex flex-col gap-3 min-w-full hidden' }
@@ -111,10 +128,12 @@ function LargeNavbar() {
 				</div>
 				<ToggleIcon style={ { right: '20px' } }/>
 			</div>
-			<ul className={ 'flex gap-5' }>
-				{ navLinks.map((link) => (
-					<li key={ link.href } data-selected={ link.href === pathname }>
-						<Link href={ link.href }>{ link.label }</Link>
+			<ul className={ 'flex' }>
+				{ navLinks.map((link, i) => (
+					<li onClick={ () => refs[i].current?.click() } key={ link.href } data-selected={ link.href === pathname }>
+						<div>
+							<Link ref={ refs[i] } href={ link.href }>{ link.label }</Link>
+						</div>
 					</li>
 				)) }
 			</ul>
