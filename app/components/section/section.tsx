@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import './section.css';
 import { useEffect, useRef } from 'react';
+import { ArrowOutward } from '@mui/icons-material';
 
 export default function Section({ title, body, href, image, linkText }: {
 	title: string, body: string, href: string, image: string, linkText: string,
@@ -39,7 +40,10 @@ export default function Section({ title, body, href, image, linkText }: {
 					<h1>{ title }</h1>
 					<p>{ body }</p>
 				</div>
-				<Link href={ href }>{linkText}</Link>
+				<Link href={ href }>
+					<p>{linkText}</p>
+					<ArrowOutward />
+				</Link>
 			</div>
 			{/* eslint-disable-next-line @next/next/no-img-element */ }
 			<img src={ image } alt={ title }/>

@@ -48,6 +48,13 @@
     translate: -50% 0;
     padding: 10px;
     border-bottom: 2px solid lime;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.section div a:hover {
+    background-color: var(--shadow);
 }
 
 .section div div p {
