@@ -34,7 +34,7 @@ export default function Section({ title, body, href, image, linkText }: {
 	}, []);
 
 	return (
-		<div className={ 'section' } ref={ selfRef }>
+		<div className={ 'section visible' } ref={ selfRef }>
 			<div>
 				<div>
 					<h1>{ title }</h1>
