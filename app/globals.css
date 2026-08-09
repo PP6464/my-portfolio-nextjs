@@ -8,6 +8,11 @@
 
 }
 
+.info-text {
+    padding: 0 10px 10px 10px;
+    text-align: center;
+}
+
 :root {
     --background: #ffffff;
     --foreground: #171717;
