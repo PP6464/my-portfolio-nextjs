@@ -16,7 +16,7 @@ export default function Frameworks() {
 
 	useEffect(() => {
 		return onSnapshot(
-			query(collection(getDb(), 'frameworks'), orderBy('index')),
+			collection(getDb(), 'frameworks'),
 			(snap) => {
 				setSections(snap.docs.map((d) => {
 					return {

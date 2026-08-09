@@ -17,7 +17,7 @@ export default function WhatImExploring() {
 
 	useEffect(() => {
 		return onSnapshot(
-			query(collection(getDb(), 'what-im-exploring'), orderBy('index')),
+			collection(getDb(), 'what-im-exploring'),
 			(snap) => {
 				setExploring(snap.docs.map((d) => d.data() as Exploring));
 			},

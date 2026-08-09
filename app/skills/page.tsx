@@ -18,7 +18,7 @@ export default function Skills() {
 
 	useEffect(() => {
 		return onSnapshot(
-			query(collection(getDb(), 'skills'), orderBy('index')),
+			collection(getDb(), 'skills'),
 			(snap) => {
 				setSkills(snap.docs.map((d) => d.data() as Skill));
 			},

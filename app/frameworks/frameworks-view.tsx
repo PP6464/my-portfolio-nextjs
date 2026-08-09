@@ -14,7 +14,7 @@ export default function FrameworksView({ id }: { id: string }) {
 
 	useEffect(() => {
 		return onSnapshot(
-			query(collection(getDb(), `frameworks/${ id }/sections`), orderBy('index')),
+			collection(getDb(), `frameworks/${ id }/sections`),
 			(snap) => {
 				setFrameworks(snap.docs.map((d) => d.data() as Framework));
 			},
@@ -25,11 +25,11 @@ export default function FrameworksView({ id }: { id: string }) {
 	}, [id]);
 
 	return (
-		<div className={ 'w-full' }>
+		<>
 			{ frameworks.map((framework) => (
 				<Section key={ framework.name } title={ framework.name } body={ framework.text } href={ '/my-code' }
 								 image={ framework.image } linkText={ 'View Code' }/>
 			)) }
-		</div>
+		</>
 	);
 }

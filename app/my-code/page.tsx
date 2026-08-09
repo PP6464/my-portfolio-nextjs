@@ -27,7 +27,7 @@ export default function MyCode() {
 
 	useEffect(() => {
 		return onSnapshot(
-			query(collection(getDb(), 'my-code'), orderBy('index')),
+			collection(getDb(), 'my-code'),
 			(snap) => {
 				setCodes(snap.docs.map((d) => d.data() as Code));
 			},
