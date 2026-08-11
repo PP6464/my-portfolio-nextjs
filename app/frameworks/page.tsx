@@ -2,7 +2,7 @@
 
 import PageContainer from '@/app/components/page-container/page-container';
 import { useEffect, useState } from 'react';
-import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
+import { collection, onSnapshot } from 'firebase/firestore';
 import { getDb } from '@/lib/firebase/client';
 import FrameworksView from '@/app/frameworks/frameworks-view';
 
@@ -14,7 +14,6 @@ type Section = {
 
 export default function Frameworks() {
 	const [sections, setSections] = useState<Section[]>([]);
-	const [totals, setTotals] = useState<number[]>([0]);
 
 	useEffect(() => {
 		return onSnapshot(
@@ -34,15 +33,15 @@ export default function Frameworks() {
 		);
 	}, []);
 
-	useEffect(() => {
+	function totals() {
 		const newTotals = [0];
 
 		for (let i = 0; i < sections.length; i++) {
 			newTotals.push(sections[i].entries + newTotals[i]);
 		}
 
-		setTotals(newTotals);
-	}, [sections]);
+		return newTotals;
+	}
 
 	return (
 		<PageContainer>
@@ -50,7 +49,7 @@ export default function Frameworks() {
 			{ sections.map((section, i) => (
 				<div key={ section.id } className={ 'flex flex-col items-center w-full' }>
 					<h2 id={ section.id } className={ 'underline p-2' }>{ section.name }:</h2>
-					<FrameworksView id={ section.id } base={ totals[i] }/>
+					<FrameworksView id={ section.id } base={ totals()[i] }/>
 				</div>
 			)) }
 		</PageContainer>
