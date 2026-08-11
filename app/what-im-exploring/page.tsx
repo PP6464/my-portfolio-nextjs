@@ -30,9 +30,9 @@ export default function WhatImExploring() {
 	return (
 		<PageContainer>
 			<h1 className={ 'pb-1' }>What I&apos;m Exploring</h1>
-			{ exploring.map((area) => (
+			{ exploring.map((area, i) => (
 				<Section key={ area.name } title={ area.name } body={ area.text } href={ '/my-code' } image={ area.image }
-								 linkText={ 'View experimental code' }/>
+								 linkText={ 'View experimental code' } reverse={ i % 2 == 0 }/>
 			)) }
 		</PageContainer>
 	);

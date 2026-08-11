@@ -8,11 +8,13 @@ import FrameworksView from '@/app/frameworks/frameworks-view';
 
 type Section = {
 	name: string;
+	entries: number;
 	id: string;
 }
 
 export default function Frameworks() {
 	const [sections, setSections] = useState<Section[]>([]);
+	const [totals, setTotals] = useState<number[]>([0]);
 
 	useEffect(() => {
 		return onSnapshot(
@@ -21,6 +23,7 @@ export default function Frameworks() {
 				setSections(snap.docs.map((d) => {
 					return {
 						name: d.data().name,
+						entries: d.data().entries,
 						id: d.id,
 					};
 				}));
@@ -31,13 +34,23 @@ export default function Frameworks() {
 		);
 	}, []);
 
+	useEffect(() => {
+		const newTotals = [0];
+
+		for (let i = 0; i < sections.length; i++) {
+			newTotals.push(sections[i].entries + newTotals[i]);
+		}
+
+		setTotals(newTotals);
+	}, [sections]);
+
 	return (
 		<PageContainer>
 			<h1>Frameworks</h1>
-			{ sections.map((section) => (
+			{ sections.map((section, i) => (
 				<div key={ section.id } className={ 'flex flex-col items-center w-full' }>
 					<h2 id={ section.id } className={ 'underline p-2' }>{ section.name }:</h2>
-					<FrameworksView id={ section.id }/>
+					<FrameworksView id={ section.id } base={ totals[i] }/>
 				</div>
 			)) }
 		</PageContainer>

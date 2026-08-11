@@ -31,9 +31,9 @@ export default function Skills() {
 	return (
 		<PageContainer>
 			<h1>Skills</h1>
-			{ skills.map((skill) => (
+			{ skills.map((skill, i) => (
 				<Section key={ skill.name } title={ skill.name } body={ skill.text } href={ skill.link } image={ skill.image }
-								 linkText={ 'Learn more' }/>
+								 linkText={ 'Learn more' } reverse={ i % 2 == 0 }/>
 			)) }
 		</PageContainer>
 	);

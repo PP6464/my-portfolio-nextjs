@@ -5,8 +5,8 @@ import './section.css';
 import { useEffect, useRef } from 'react';
 import { ArrowOutward } from '@mui/icons-material';
 
-export default function Section({ title, body, href, image, linkText }: {
-	title: string, body: string, href: string, image: string, linkText: string,
+export default function Section({ title, body, href, image, linkText, reverse }: {
+	title: string, body: string, href: string, image: string, linkText: string, reverse: boolean
 }) {
 	const selfRef = useRef(null);
 
@@ -34,7 +34,7 @@ export default function Section({ title, body, href, image, linkText }: {
 	}, []);
 
 	return (
-		<div className={ 'section visible' } ref={ selfRef }>
+		<div className={ `section visible ${reverse ? 'reverse' : ''}` } ref={ selfRef }>
 			<div>
 				<div>
 					<h1>{ title }</h1>

@@ -9,7 +9,7 @@ type Framework = {
 	image: string;
 }
 
-export default function FrameworksView({ id }: { id: string }) {
+export default function FrameworksView({ id, base }: { id: string, base: number }) {
 	const [frameworks, setFrameworks] = useState<Framework[]>([]);
 
 	useEffect(() => {
@@ -26,9 +26,9 @@ export default function FrameworksView({ id }: { id: string }) {
 
 	return (
 		<>
-			{ frameworks.map((framework) => (
+			{ frameworks.map((framework, i) => (
 				<Section key={ framework.name } title={ framework.name } body={ framework.text } href={ '/my-code' }
-								 image={ framework.image } linkText={ 'View Code' }/>
+								 image={ framework.image } linkText={ 'View Code' } reverse={ (i + base) % 2 == 0 }/>
 			)) }
 		</>
 	);
