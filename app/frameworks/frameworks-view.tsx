@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
+import { collection, onSnapshot } from 'firebase/firestore';
 import { getDb } from '@/lib/firebase/client';
 import Section from '@/app/components/section/section';
 
@@ -27,6 +27,7 @@ export default function FrameworksView({ id, base }: { id: string, base: number 
 
 	return (
 		<>
+			{ frameworks.length === 0 ? <p>Loading framework information ...</p> : <></> }
 			{ frameworks.map((framework, i) => (
 				<Section key={ framework.name } title={ framework.name } body={ framework.text } href={ '/my-code' }
 								 image={ framework.image } linkText={ 'View Code' } reverse={ (i + base) % 2 == 0 }/>

@@ -47,6 +47,7 @@ export default function Frameworks() {
 	return (
 		<PageContainer>
 			<h1>Frameworks</h1>
+			{ sections.length === 0 ? <p>Loading ...</p> : <></> }
 			{ sections.map((section, i) => (
 				<div key={ section.id } className={ 'flex flex-col items-center w-full' }>
 					<h2 id={ section.id } className={ 'underline p-2' }>{ section.name }:</h2>

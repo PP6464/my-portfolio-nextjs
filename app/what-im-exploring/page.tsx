@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
+import { collection, onSnapshot } from 'firebase/firestore';
 import { getDb } from '@/lib/firebase/client';
 import Section from '@/app/components/section/section';
 import PageContainer from '@/app/components/page-container/page-container';
@@ -31,6 +31,7 @@ export default function WhatImExploring() {
 	return (
 		<PageContainer>
 			<h1 className={ 'pb-1' }>What I&apos;m Exploring</h1>
+			{ exploring.length === 0 ? <p>Loading...</p> : <></> }
 			{ exploring.map((area, i) => (
 				<Section key={ area.name } title={ area.name } body={ area.text } href={ '/my-code' } image={ area.image }
 								 linkText={ 'View experimental code' } reverse={ i % 2 == 0 }/>

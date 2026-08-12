@@ -1,7 +1,7 @@
 'use client';
 
 import PageContainer from '@/app/components/page-container/page-container';
-import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
+import { collection, onSnapshot } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { getDb } from '@/lib/firebase/client';
 import Section from '@/app/components/section/section';
@@ -32,6 +32,7 @@ export default function Skills() {
 	return (
 		<PageContainer>
 			<h1>Skills</h1>
+			{ skills.length === 0 ? <p>Loading...</p> : <></> }
 			{ skills.map((skill, i) => (
 				<Section key={ skill.name } title={ skill.name } body={ skill.text } href={ skill.link } image={ skill.image }
 								 linkText={ 'Learn more' } reverse={ i % 2 == 0 }/>

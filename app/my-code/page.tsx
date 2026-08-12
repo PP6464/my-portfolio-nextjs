@@ -42,8 +42,8 @@ function TagView({ docRef }: { docRef: DocumentReference }) {
 		);
 	}, [docRef]);
 
-	return (
-		<div  style={ {
+	return tag.name === '' ? <p>Loading tag info ...</p> : (
+		<div style={ {
 			backgroundColor: tag.colour,
 			border: `2px solid ${ tag.border }`,
 			color: tag.border,
@@ -75,6 +75,7 @@ export default function MyCode() {
 	return (
 		<PageContainer>
 			<h1>My Code</h1>
+			{ codes.length === 0 ? <p>Loading ...</p> : <></>}
 			{ codes.map((code) => (
 				<div key={ code.name } className={ 'code' }>
 					<h2>{ code.name }{ code.in_progress ? ' [In Progress]' : '' }</h2>
