@@ -23,6 +23,7 @@ export default function Skills() {
 				setSkills(snap.docs.map((d) => d.data() as Skill));
 			},
 			(err) => {
+				alert('Failed to load data');
 				console.error('Failed to load skills:', err);
 			},
 		);

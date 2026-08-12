@@ -19,6 +19,7 @@ export default function FrameworksView({ id, base }: { id: string, base: number 
 				setFrameworks(snap.docs.map((d) => d.data() as Framework));
 			},
 			(err) => {
+				alert('Failed to load data');
 				console.error('Failed to load frameworks:', err);
 			},
 		);

@@ -22,6 +22,7 @@ export default function WhatImExploring() {
 				setExploring(snap.docs.map((d) => d.data() as Exploring));
 			},
 			(err) => {
+				alert('Failed to load data');
 				console.error('Failed to load exploring areas:', err);
 			},
 		);

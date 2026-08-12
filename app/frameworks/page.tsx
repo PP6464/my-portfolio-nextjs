@@ -28,6 +28,7 @@ export default function Frameworks() {
 				}));
 			},
 			(err) => {
+				alert('Failed to load data');
 				console.error('Failed to load framework sections:', err);
 			},
 		);

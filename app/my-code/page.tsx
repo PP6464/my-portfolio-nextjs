@@ -36,6 +36,7 @@ function TagView({ docRef }: { docRef: DocumentReference }) {
 				setTag(snap.data() as Tag);
 			},
 			(err) => {
+				alert('Failed to load data');
 				console.error('Failed to load tag data: ', err);
 			},
 		);
@@ -65,6 +66,7 @@ export default function MyCode() {
 				setCodes(snap.docs.map((d) => d.data() as Code));
 			},
 			(err) => {
+				alert('Failed to load data');
 				console.error('Failed to load exploring areas: ', err);
 			},
 		);
