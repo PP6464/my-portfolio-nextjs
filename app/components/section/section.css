@@ -51,6 +51,8 @@
     display: flex;
     align-items: center;
     gap: 5px;
+    max-width: min(85%, 410px);
+    width: max-content;
 }
 
 .section div a:hover {
