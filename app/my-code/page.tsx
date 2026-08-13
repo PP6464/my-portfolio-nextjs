@@ -7,6 +7,8 @@ import { getDb } from '@/lib/firebase/client';
 import './my-code.css';
 import Link from 'next/link';
 import { ArrowOutward } from '@mui/icons-material';
+import { useTheme } from 'next-themes';
+import { useMounted } from '@/app/hooks/use-mounted';
 
 type Tag = {
 	name: string;
@@ -23,6 +25,9 @@ type Code = {
 }
 
 function TagView({ docRef }: { docRef: DocumentReference }) {
+	const { resolvedTheme } = useTheme();
+	const mounted = useMounted();
+
 	const [tag, setTag] = useState<Tag>({
 		name: '',
 		colour: 'var(--background)',
@@ -42,18 +47,20 @@ function TagView({ docRef }: { docRef: DocumentReference }) {
 		);
 	}, [docRef]);
 
+	if (!mounted) return null;
+
 	return tag.name === '' ? <p>Loading tag info ...</p> : (
 		<div style={ {
-			backgroundColor: tag.colour,
-			border: `2px solid ${ tag.border }`,
-			color: tag.border,
+			backgroundColor: resolvedTheme === 'light' ? tag.border : tag.colour,
+			border: `2px solid ${ resolvedTheme === 'light' ? tag.colour : tag.border }`,
+			color: resolvedTheme === 'light' ? tag.colour : tag.border,
 			borderRadius: '50px',
 			width: 'fit-content',
-			padding: '5px 10px',
+			padding: '3px 6px',
 		} }>
-			<p>{ tag.name }</p>
+			<p style={ { fontSize: '12px' } }>{ tag.name }</p>
 		</div>
-	)
+	);
 }
 
 export default function MyCode() {
@@ -75,13 +82,13 @@ export default function MyCode() {
 	return (
 		<PageContainer>
 			<h1>My Code</h1>
-			{ codes.length === 0 ? <p>Loading ...</p> : <></>}
+			{ codes.length === 0 ? <p>Loading ...</p> : <></> }
 			{ codes.map((code) => (
 				<div key={ code.name } className={ 'code' }>
 					<h2>{ code.name }{ code.in_progress ? ' [In Progress]' : '' }</h2>
 					<div>
 						{ code.tags.map((tag) => (
-							<TagView key={ `${ code.name }-${ tag.id }` } docRef={tag} />
+							<TagView key={ `${ code.name }-${ tag.id }` } docRef={ tag }/>
 						)) }
 					</div>
 					<Link target={ '_blank' } rel={ 'noreferrer' } href={ code.link }>
