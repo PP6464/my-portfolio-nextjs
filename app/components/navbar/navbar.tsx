@@ -5,21 +5,11 @@ import Image from 'next/image';
 import Email from '@mui/icons-material/Email';
 import { DarkMode, Phone, Sunny } from '@mui/icons-material';
 import Link from 'next/link';
-import React, { useRef, useState, useSyncExternalStore } from 'react';
+import React, { useRef, useState } from 'react';
 import './navbar.css';
 import { IconButton } from '@mui/material';
 import { useTheme } from 'next-themes';
-
-const emptySubscribe = () => () => {
-};
-
-function useMounted() {
-	return useSyncExternalStore(
-		emptySubscribe,
-		() => true,
-		() => false,
-	);
-}
+import { useMounted } from '@/app/hooks/use-mounted';
 
 const navLinks = [
 	{ href: '/', label: 'Home' },
