@@ -2,7 +2,7 @@
 
 import PageContainer from '@/app/components/page-container/page-container';
 import { useEffect, useState } from 'react';
-import { collection, DocumentReference, onSnapshot } from 'firebase/firestore';
+import { collection, DocumentReference, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { getDb } from '@/lib/firebase/client';
 import './my-code.css';
 import Link from 'next/link';
@@ -68,7 +68,11 @@ export default function MyCode() {
 
 	useEffect(() => {
 		return onSnapshot(
-			collection(getDb(), 'my-code'),
+			query(
+				collection(getDb(), 'my-code'),
+				orderBy('in_progress', 'desc'),
+				orderBy('finishedOn', 'desc'),
+			),
 			(snap) => {
 				setCodes(snap.docs.map((d) => d.data() as Code));
 			},
