@@ -78,7 +78,7 @@ export default function MyCode() {
 			},
 			(err) => {
 				alert('Failed to load data');
-				console.error('Failed to load exploring areas: ', err);
+				console.error('Failed to load code entries: ', err);
 			},
 		);
 	}, []);
