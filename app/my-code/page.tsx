@@ -104,7 +104,7 @@ export default function MyCode() {
 							<ArrowOutward/></Link> : <></> }
 				</div>
 			)) }
-			<div style={ { padding: '5px' } }></div>
+			<div style={ { padding: '10px' } }></div>
 		</PageContainer>
 	);
 }

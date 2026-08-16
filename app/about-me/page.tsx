@@ -83,7 +83,7 @@ export default function AboutMe() {
 					</Link>
 				</div>
 			</ul>
-
+			<div style={ { padding: '20px' } }></div>
 		</PageContainer>
 	);
 }
