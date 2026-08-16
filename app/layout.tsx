@@ -11,7 +11,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-	title: 'Panth Patel\'s Portfolio',
+	title: 'Panth\'s Portfolio',
 	description: 'Software development portfolio',
 };
 
@@ -31,7 +31,7 @@ export default function RootLayout({
 			<meta name={ 'viewport' } content={ 'width=device-width, initial-scale=1.0' }/>
 			<meta name={ 'lang' } content={ 'en-GB' }/>
 			<link rel="icon" href="/profile-pic.png"/>
-			<title>Panth Patel&apos;s Portfolio</title>
+			<title>Panth&apos;s Portfolio</title>
 		</head>
 		<body className="h-screen flex flex-col">
 			<Provider>
