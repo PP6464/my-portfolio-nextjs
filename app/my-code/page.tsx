@@ -58,7 +58,7 @@ function TagView({ docRef }: { docRef: DocumentReference }) {
 			width: 'fit-content',
 			padding: '3px 6px',
 		} }>
-			<p style={ { fontSize: '12px' } }>{ tag.name }</p>
+			<p style={ { fontSize: '13px' } }>{ tag.name }</p>
 		</div>
 	);
 }
