@@ -10,13 +10,17 @@ import { IconButton } from '@mui/material';
 import { useTheme } from 'next-themes';
 import { useMounted } from '@/app/hooks/use-mounted';
 
+function removeSlashes(s: string): string {
+	return s.replaceAll('/', '');
+}
+
 const navLinks = [
 	{ href: '/', label: 'Home' },
-	{ href: '/about-me', label: 'About Me' },
-	{ href: '/skills', label: 'Skills' },
-	{ href: '/frameworks', label: 'Frameworks' },
-	{ href: '/what-im-exploring', label: 'What I\'m Exploring' },
-	{ href: '/my-code', label: 'My Code' },
+	{ href: '/about-me/', label: 'About Me' },
+	{ href: '/skills/', label: 'Skills' },
+	{ href: '/frameworks/', label: 'Frameworks' },
+	{ href: '/what-im-exploring/', label: 'What I\'m Exploring' },
+	{ href: '/my-code/', label: 'My Code' },
 ];
 
 function ToggleIcon({ style }: { style?: React.CSSProperties }) {
@@ -40,6 +44,7 @@ function ToggleIcon({ style }: { style?: React.CSSProperties }) {
 function SmallNavbar() {
 	const pathname = usePathname();
 	const [showingLinks, setShowingLinks] = useState(false);
+	const [selected, setSelected] = useState<string>(pathname);
 	const refs = [
 		useRef<HTMLAnchorElement>(null),
 		useRef<HTMLAnchorElement>(null),
@@ -73,9 +78,10 @@ function SmallNavbar() {
 			<ul className={ `flex flex-col gap-7` } style={ { display: showingLinks ? 'block' : 'none' } }>
 				{ navLinks.map((link, i) => (
 					<li onClick={ () => refs[i].current?.click() } className={ 'flex justify-center' } key={ link.href }
-							data-selected={ link.href === pathname }>
+							data-selected={ removeSlashes(link.href) === removeSlashes(selected) }>
 						<div>
-							<Link ref={ refs[i] } onClick={ () => setShowingLinks(false) } href={ link.href }>{ link.label }</Link>
+							<Link ref={ refs[i] } onClick={ () => { setSelected(link.href); setShowingLinks(false); } }
+										href={ link.href }>{ link.label }</Link>
 						</div>
 					</li>
 				)) }
@@ -86,6 +92,7 @@ function SmallNavbar() {
 
 function LargeNavbar() {
 	const pathname = usePathname();
+	const [selected, setSelected] = useState<string>(pathname);
 	const refs = [
 		useRef<HTMLAnchorElement>(null),
 		useRef<HTMLAnchorElement>(null),
@@ -99,12 +106,12 @@ function LargeNavbar() {
 		<nav className={ 'nav:flex flex-col gap-3 min-w-full hidden' }
 				 style={ { padding: '10px', boxShadow: '0 2px 4px var(--shadow)' } }>
 			<div className={ 'flex items-center gap-3' }>
-				{/* eslint-disable-next-line @next/next/no-img-element */}
+				{/* eslint-disable-next-line @next/next/no-img-element */ }
 				<img className={ 'rounded-full border-2' }
-							 loading={ 'eager' }
-							 style={ { borderColor: 'var(--foreground)' } }
-							 src={ '/profile-pic.png' } alt="profile-pic" width={ 125 }
-							 height={ 125 }/>
+						 loading={ 'eager' }
+						 style={ { borderColor: 'var(--foreground)' } }
+						 src={ '/profile-pic.png' } alt="profile-pic" width={ 125 }
+						 height={ 125 }/>
 				<div className={ 'flex flex-col gap-0.5' }>
 					<h1>Panth Patel</h1>
 					<div className={ 'flex gap-2 items-center grey' }>
@@ -120,9 +127,10 @@ function LargeNavbar() {
 			</div>
 			<ul className={ 'flex' }>
 				{ navLinks.map((link, i) => (
-					<li onClick={ () => refs[i].current?.click() } key={ link.href } data-selected={ link.href === pathname }>
+					<li onClick={ () => refs[i].current?.click() } key={ link.href }
+							data-selected={ removeSlashes(link.href) === removeSlashes(selected) }>
 						<div>
-							<Link ref={ refs[i] } href={ link.href }>{ link.label }</Link>
+							<Link ref={ refs[i] } onClick={ () => setSelected(link.href) } href={ link.href }>{ link.label }</Link>
 						</div>
 					</li>
 				)) }
