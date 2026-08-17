@@ -89,7 +89,7 @@ export default function MyCode() {
 			{ codes.length === 0 ? <p>Loading ...</p> : <></> }
 			{ codes.map((code) => (
 				<div key={ code.name } className={ 'code' }>
-					<h2>{ code.name }{ code.in_progress ? ' [In Progress]' : '' }</h2>
+					<h2 className={ 'info-text' }>{ code.name }{ code.in_progress ? ' [In Progress]' : '' }</h2>
 					<div>
 						{ code.tags.map((tag) => (
 							<TagView key={ `${ code.name }-${ tag.id }` } docRef={ tag }/>
