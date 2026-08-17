@@ -21,7 +21,7 @@
 }
 
 .section img {
-    max-height: 500px;
+    height: min(50vw, 450px);
     width: 50%;
 }
 
@@ -64,6 +64,11 @@
     text-align: center;
 }
 
+.section div div h1 {
+    text-align: center;
+    width: min(410px, 95%);
+}
+
 @media (width < 1000px) {
     .section div div {
         width: 100%;
@@ -84,6 +89,12 @@
 
     .section div a {
         bottom: 10px;
+    }
+}
+
+@media (width < 500px) {
+    .section img {
+        height: 75vw;
     }
 }
 
