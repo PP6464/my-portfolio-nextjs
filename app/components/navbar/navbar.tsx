@@ -1,7 +1,6 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import Image from 'next/image';
 import Email from '@mui/icons-material/Email';
 import { DarkMode, Phone, Sunny } from '@mui/icons-material';
 import Link from 'next/link';
@@ -100,7 +99,8 @@ function LargeNavbar() {
 		<nav className={ 'nav:flex flex-col gap-3 min-w-full hidden' }
 				 style={ { padding: '10px', boxShadow: '0 2px 4px var(--shadow)' } }>
 			<div className={ 'flex items-center gap-3' }>
-				<Image className={ 'rounded-full border-2' }
+				{/* eslint-disable-next-line @next/next/no-img-element */}
+				<img className={ 'rounded-full border-2' }
 							 loading={ 'eager' }
 							 style={ { borderColor: 'var(--foreground)' } }
 							 src={ '/profile-pic.png' } alt="profile-pic" width={ 125 }
