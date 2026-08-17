@@ -1,0 +1,17 @@
+{
+  "hosting": {
+    "public": "out",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      { "source": "/about-me", "destination": "/about-me/index.html" },
+      { "source": "/skills", "destination": "/skills/index.html" },
+      { "source": "/frameworks", "destination": "/frameworks/index.html" },
+      { "source": "/my-code", "destination": "/my-code/index.html" },
+      { "source": "/what-im-exploring", "destination": "/what-im-exploring/index.html" }
+    ]
+  }
+}
